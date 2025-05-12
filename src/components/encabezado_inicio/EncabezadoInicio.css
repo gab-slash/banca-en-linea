@@ -1,39 +1,46 @@
+h2 {font-size: 2rem };
+p  {font-size: 1.1rem;}
+
+
 .encabezado {
+    
     width: 100%;
+    height: 12vh;
     background: linear-gradient(135deg, white 30%, rgb(8,95,99) 30%);
-    padding: 10px 0;
+    
+    
 }
 
-.franja {
-    height: 5px;
-    background-color: rgb(8,95,99);
-}
+
 
 .nav-contenedor {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px;
+    padding: 0px;
 }
 
 .nav-figura {
-    margin: 16px 0px;
-    width: 400px;
-    height: 40px;
-    margin-left: 40px;
-    margin-bottom: 25px;
+    width: 20%; /* Se ajustará proporcionalmente dentro de su contenedor */
+    height: auto; /* Para que la proporción se mantenga */
+    margin-left: 5%;
 }
 
 .nav-logo {
-    width: 350px;
-    height: 50px;
+    width: 100%; /* La imagen ocupará todo el espacio dentro de .nav-figura */
+    height: auto;
+    max-width: 300px;
+    
 }
 
 .datos {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     color: white;
+    padding-right: 20px;
+    justify-content: space-around;
+    gap: 7vw;
 }
 
 .regresar {

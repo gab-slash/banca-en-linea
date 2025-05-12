@@ -1,3 +1,5 @@
+import "./OpcionesSesion.css"
+
 function EnlaceSesion({ url, texto }) {
     return <a href={url} className="enlace-sesion">{texto}</a>;
 }
@@ -10,8 +12,8 @@ function OpcionesSesion() {
 
     return (
         <div className="opciones-sesion">
-            {enlaces.map((enlace, index) => (
-                <EnlaceSesion key={index} url={enlace.url} texto={enlace.texto} />
+            {enlaces.map((enlace) => (
+                <EnlaceSesion key={enlace.url} url={enlace.url} texto={enlace.texto} />
             ))}
         </div>
     );

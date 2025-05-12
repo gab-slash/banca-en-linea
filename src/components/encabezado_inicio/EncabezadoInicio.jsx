@@ -3,11 +3,10 @@ import "./EncabezadoInicio.css";
 function EncabezadoInicio() {
     return (
         <header className="encabezado">
-            <div className="franja"></div>
             <nav className="nav">
                 <div className="nav-contenedor">
                     <figure className="nav-figura">
-                        <img src="../../assets/logo-no-background.png" alt="Logo Universitario" className="nav-logo" />
+                        <img src="/src/assets/logo-no-background.png" alt="Logo Universitario" className="nav-logo" />
                     </figure>
                     <div className="datos">
                         <h2>Acceso a la Banca en Línea</h2>

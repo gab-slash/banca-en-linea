@@ -1,14 +1,33 @@
-.boton-principal {
-    font-size: 1.2rem;
-    padding: 10px 20px;
-    background-color: rgb(255,90,100);
+button {
+    all: unset;
+    font-family: 'Montserrat', sans-serif;
     color: white;
-    border: none;
-    border-radius: 8px;
+    letter-spacing: 2px;
+    font-size: 1.3rem;
+    background-color: rgb(8,90,100);
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 15px;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease, box-shadow 0.3s ease-in-out;
 }
 
-.boton-principal:hover {
+button:hover {
     background-color: rgb(6,75,78);
+    transform: scale(1.05); /* Agranda un poco al pasar el mouse */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Resalta el efecto visual */
+}
+
+button:active {
+    transform: scale(0.98); /* Simula un "presionado" */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+input::placeholder {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    color: #888;
+    font-style: italic;
+    opacity: 1;
 }

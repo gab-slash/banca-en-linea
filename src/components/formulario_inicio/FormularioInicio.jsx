@@ -2,7 +2,7 @@ import CampoEntradaInicio from "../campo_entrada_inicio/CampoEntradaInicio"; // 
 import BotonInicio from "../boton_inicio/BotonInicio";
 
 
-
+import "./FormularioInicio.css"
 
 
 function FormularioInicio() {
