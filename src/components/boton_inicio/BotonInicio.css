@@ -1,0 +1,14 @@
+.boton-principal {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    background-color: rgb(255,90,100);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.boton-principal:hover {
+    background-color: rgb(6,75,78);
+}

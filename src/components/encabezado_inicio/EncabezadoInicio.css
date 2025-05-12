@@ -1,0 +1,51 @@
+.encabezado {
+    width: 100%;
+    background: linear-gradient(135deg, white 30%, rgb(8,95,99) 30%);
+    padding: 10px 0;
+}
+
+.franja {
+    height: 5px;
+    background-color: rgb(8,95,99);
+}
+
+.nav-contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.nav-figura {
+    margin: 16px 0px;
+    width: 400px;
+    height: 40px;
+    margin-left: 40px;
+    margin-bottom: 25px;
+}
+
+.nav-logo {
+    width: 350px;
+    height: 50px;
+}
+
+.datos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.regresar {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+
+.regresar:hover {
+    text-decoration: underline;
+    color: lightgray;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 2px;
+}
