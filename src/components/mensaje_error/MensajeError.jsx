@@ -1,15 +1,15 @@
-import "./MensajeError.css"
+import styles from "./MensajeError.module.css";
 
 function ErrorMensaje({ mensaje }) {
-    return mensaje ? <span className="error-mensaje">{mensaje}</span> : null;
+    return mensaje ? <span className={styles.errorMensaje}>{mensaje}</span> : null;
 }
 
 function ErrorGlobal({ mensaje, onClose }) {
     return (
         mensaje && (
-            <div className="error-global-overlay">
-                <div className="error-global">
-                    <div className="error-icono">
+            <div className={styles.errorGlobalOverlay}>
+                <div className={styles.errorGlobal}>
+                    <div className={styles.errorIcono}>
                         X
                     </div>
                     <p>{mensaje}</p> 
@@ -19,8 +19,5 @@ function ErrorGlobal({ mensaje, onClose }) {
         )
     );
 }
-
-
-
 
 export { ErrorMensaje, ErrorGlobal };

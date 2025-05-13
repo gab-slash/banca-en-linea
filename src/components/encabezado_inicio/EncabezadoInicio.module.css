@@ -1,36 +1,35 @@
-h2 {font-size: 2rem };
-p  {font-size: 1.1rem;}
+h2 {
+    font-size: 2rem;
+}
 
+p {
+    font-size: 1.1rem;
+}
 
 .encabezado {
-    
     width: 100%;
     height: 12vh;
     background: linear-gradient(135deg, white 30%, rgb(8,95,99) 30%);
-    
-    
 }
 
-
-
-.nav-contenedor {
+.navContenedor {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0px;
 }
 
-.nav-figura {
-    width: 20%; /* Se ajustará proporcionalmente dentro de su contenedor */
-    height: auto; /* Para que la proporción se mantenga */
+.navFigura {
+    width: 20%;
+    height: auto;
     margin-left: 5%;
 }
 
-.nav-logo {
-    width: 100%; /* La imagen ocupará todo el espacio dentro de .nav-figura */
+.navLogo {
+    width: 100%;
     height: auto;
     max-width: 300px;
-    
 }
 
 .datos {

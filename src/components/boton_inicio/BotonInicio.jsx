@@ -1,8 +1,8 @@
-import "./BotonInicio.css"
+import styles from "./BotonInicio.module.css"
 
 function BotonInicio({ texto, onClick }) {
     return (
-        <button className="boton-inicio" onClick={onClick}>
+        <button className={styles.botonInicio} onClick={onClick}>
             {texto}
         </button>
     );

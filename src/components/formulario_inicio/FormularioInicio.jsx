@@ -2,7 +2,7 @@ import { useState } from "react";
 import CampoEntradaInicio from "../campo_entrada_inicio/CampoEntradaInicio";
 import BotonInicio from "../boton_inicio/BotonInicio";
 import { ErrorGlobal } from "../mensaje_error/MensajeError";
-import "./FormularioInicio.css";
+import styles from "./FormularioInicio.module.css";
 
 function FormularioInicio() {
     const [formData, setFormData] = useState({ usuario: "", password: "" });
@@ -10,8 +10,9 @@ function FormularioInicio() {
     const [errorGlobal, setErrorGlobal] = useState("");
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.id]: e.target.value }); /* ✅ Se actualiza el estado */
-        setErrores({ ...errores, [e.target.id]: "" }); /* ✅ Borra el error cuando escribe */
+        const { id, value } = e.target;
+        setFormData({ ...formData, [id]: value });
+        setErrores({ ...errores, [id]: "" }); // Borra el error al escribir
     };
 
     const handleSubmit = (e) => {
@@ -19,13 +20,11 @@ function FormularioInicio() {
         setErrorGlobal(""); // Limpia error global antes de validar
         let nuevosErrores = {};
 
-        // 🔹 Validación de campos vacíos
         if (!formData.usuario.trim()) nuevosErrores.usuario = "El correo es obligatorio.";
         if (!formData.password.trim()) nuevosErrores.password = "La contraseña es obligatoria.";
 
         setErrores(nuevosErrores);
 
-        // 🔹 Si hay errores, muestra el mensaje global
         if (Object.keys(nuevosErrores).length > 0) {
             setErrorGlobal("Los campos no pueden estar vacíos.");
             return;
@@ -33,8 +32,8 @@ function FormularioInicio() {
     };
 
     return (
-        <>
-            <form onSubmit={handleSubmit} id="formulario" noValidate>
+        <div className={styles.formularioInicio}>
+            <form className={styles.formularioIS} onSubmit={handleSubmit} noValidate>
                 <CampoEntradaInicio 
                     tipo="text" 
                     id="usuario" 
@@ -55,8 +54,8 @@ function FormularioInicio() {
                 />
                 <BotonInicio texto="Iniciar Sesión" />
             </form>
-            <ErrorGlobal mensaje={errorGlobal} onClose={() => setErrorGlobal("")} />
-        </>
+            {errorGlobal && <ErrorGlobal mensaje={errorGlobal} onClose={() => setErrorGlobal("")} />}
+        </div>
     );
 }
 

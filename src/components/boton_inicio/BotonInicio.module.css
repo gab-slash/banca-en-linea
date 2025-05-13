@@ -1,4 +1,4 @@
-button {
+.botonInicio { /* ✅ Cambiado de .buttonInicio */
     all: unset;
     font-family: 'Montserrat', sans-serif;
     color: white;
@@ -13,14 +13,14 @@ button {
     transition: background-color 0.3s ease-in-out, transform 0.2s ease, box-shadow 0.3s ease-in-out;
 }
 
-button:hover {
+.botonInicio:hover { /* ✅ Ajustado */
     background-color: rgb(6,75,78);
-    transform: scale(1.05); /* Agranda un poco al pasar el mouse */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Resalta el efecto visual */
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
 
-button:active {
-    transform: scale(0.98); /* Simula un "presionado" */
+.botonInicio:active { /* ✅ Ajustado */
+    transform: scale(0.98);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 

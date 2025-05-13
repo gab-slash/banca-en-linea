@@ -4,7 +4,7 @@ import PantallaRegistro from './pages/Registro';
 
 function App() {
   return (
-     <PantallaRegistro />  // Renderiza la pantalla de inicio de sesión
+     <PantallaInicio/>  // Renderiza la pantalla de inicio de sesión
   );
 }
 

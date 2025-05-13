@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { getJWT } from "../utils/localStorage"
 
-export const API_URL_BACKEND = process.env.REACT_APP_API_URL_BACKEND;
+export const API_URL_BACKEND = "http://localhost:5173/"
 const AXIOS_TIMEOUT_MS = process.env.REACT_APP_AXIOS_TIMEOUT_MS || 10000;
 
 const defaultHeaders = {

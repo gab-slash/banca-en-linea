@@ -1,9 +1,14 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../assets/Montserrat Alternates Regular.ttf') format('truetype'); /* ✅ Ajusta la ruta */
+}
+
 .entrada{
     min-width: 220px;
     border-radius: 15px;
     padding: 15px 60px 10px 30px;
     margin-bottom: 10px;
-    background-color: #e0f4f4;
+    background-color: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -15,6 +20,7 @@
 }
 
 .entrada input {
+    font-family: 'Montserrat', sans-serif !important;
     width: 100%;
     padding: 8px;
     border: none;
