@@ -4,8 +4,6 @@ import { getJWT } from "../utils/localStorage"
 export const API_URL_BACKEND = import.meta.env.VITE_API_URL_BACKEND || "http://localhost:3000";
 const AXIOS_TIMEOUT_MS = import.meta.env.VITE_AXIOS_TIMEOUT_MS || 10000;
 
-
-
 const defaultHeaders = {
     Accept: "application/json",
     "Content-Type": "application/json",
