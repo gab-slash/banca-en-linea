@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
 import styles from "./OpcionesSesion.module.css";
 
 function EnlaceSesion({ url, texto }) {
-    return <a href={url} className={styles.enlaceSesion}>{texto}</a>;
+    return <Link to={url} className={styles.enlaceSesion}>{texto}</Link>; // ✅ Usamos <Link> en lugar de <a>
 }
 
 function OpcionesSesion() {
