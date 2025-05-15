@@ -29,7 +29,7 @@ form {
     display: grid;
     grid-template-columns: repeat(2, minmax(250px, 1fr));
     padding-top: 50px;
-    gap: 50px; /* ✅ Aumenta la separación entre los campos */
+    gap: 30px 280px; /* ✅ Aumenta la separación entre los campos */
     align-items: center;
     justify-content: center;
     place-items: center;
@@ -44,7 +44,7 @@ form {
     position: absolute;
     top: 74vb;
     left: 0px;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: black;
     cursor: pointer;
@@ -76,4 +76,9 @@ form {
     text-align: center;
     font-size: 18px;
     font-weight: bold;
+    font-size: 2rem;
+}
+
+#exito{
+    font-size: 2rem;
 }
