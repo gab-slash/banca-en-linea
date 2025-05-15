@@ -30,20 +30,20 @@ function FormularioInicio() {
 
         let nuevosErrores = hasFieldsErrors(formData, validaciones);
 
-        // ✅ Primero, si está vacío, mostrar "Campo requerido"
+        //  Primero, si está vacío, mostrar "Campo requerido"
         if (!formData.password.trim()) {
             nuevosErrores.password = "Campo requerido";
         }
-        // ✅ Luego, si no está vacío pero es menor a 8 caracteres, mostrar mensaje de longitud mínima
+        //  Luego, si no está vacío pero es menor a 8 caracteres, mostrar mensaje de longitud mínima
         else if (formData.password.trim().length < 8) {
             nuevosErrores.password = "Debe contener al menos 8 caracteres.";
         }
-        // ✅ Si es mayor a 16 caracteres, mostrar mensaje de límite máximo
+        //  Si es mayor a 16 caracteres, mostrar mensaje de límite máximo
         else if (formData.password.trim().length > 16) {
             nuevosErrores.password = "Debe contener máximo 16 caracteres.";
         }
 
-        // ✅ Evita espacios dentro de la contraseña
+        //  Evita espacios dentro de la contraseña
         if (!nuevosErrores.password && formData.password.includes(" ")) {
             nuevosErrores.password = "La contraseña no debe contener espacios.";
         }
@@ -90,7 +90,7 @@ function FormularioInicio() {
       } catch (error) {
           console.error("Error en la solicitud:", error);
 
-          // ✅ Si la API responde con 401, mostramos el mensaje correcto
+          //  Si la API responde con 401, mostramos el mensaje correcto
           if (error.response && error.response.status === 401) {
               setErrorGlobal("Correo o contraseña incorrectos.");
           } else {

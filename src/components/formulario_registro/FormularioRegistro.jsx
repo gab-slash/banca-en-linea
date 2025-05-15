@@ -45,26 +45,26 @@ function FormularioRegistro() {
 
     const validarFormulario = () => {
         const validaciones = {
-            first_name: ["required", { maxLength: 50 }], // ✅ Máximo 50 caracteres
-            last_name: ["required", { maxLength: 50 }], // ✅ Máximo 50 caracteres
-            document_number: ["required", { maxLength: 20 }], // ✅ Máximo 20 caracteres
-            birth_date: ["required"], // ✅ No necesita límite de longitud
-            phone_number: ["required", { maxLength: 15 }], // ✅ Máximo 15 caracteres
-            email: ["required", "email", { maxLength: 100 }], // ✅ Máximo 100 caracteres
-            password: ["required", { minLength: 8 }, { maxLength: 16 }], // ✅ Mínimo 8, máximo 16 caracteres
+            first_name: ["required", { maxLength: 50 }],
+            last_name: ["required", { maxLength: 50 }], 
+            document_number: ["required", { maxLength: 20 }], 
+            birth_date: ["required"], 
+            phone_number: ["required", { maxLength: 15 }], 
+            email: ["required", "email", { maxLength: 100 }], 
+            password: ["required", { minLength: 8 }, { maxLength: 16 }], 
             confirm_password: [{ sameAs: formData.password }, "required"]
         };
 
         let nuevosErrores = hasFieldsErrors(formData, validaciones);
 
-        // ✅ Prioridad en "Campo requerido"
+        //  Prioridad en "Campo requerido"
         for (let campo in formData) {
             if (!formData[campo].trim()) {
                 nuevosErrores[campo] = "Campo requerido";
             }
         }
 
-        // ✅ Validación manual para nombres (solo letras)
+        // Validación manual para nombres (solo letras)
         const soloLetras = /^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]+$/;
         if (!nuevosErrores.first_name && formData.first_name.trim() && !soloLetras.test(formData.first_name)) {
             nuevosErrores.first_name = "Solo se permiten letras.";
@@ -73,7 +73,7 @@ function FormularioRegistro() {
             nuevosErrores.last_name = "Solo se permiten letras.";
         }
 
-        // ✅ Validación manual para números en `document_number` y `phone_number`
+        //  Validación manual para números en `document_number` y `phone_number`
         const soloNumeros = /^\d+$/;
         if (!nuevosErrores.document_number && formData.document_number.trim()) {
             if (!soloNumeros.test(formData.document_number)) {
@@ -91,7 +91,7 @@ function FormularioRegistro() {
             }
         }
 
-        // ✅ Validación manual para contraseña (mínimo y máximo)
+        // Validación manual para contraseña (mínimo y máximo)
         if (!nuevosErrores.password && formData.password.trim().length > 16) {
             nuevosErrores.password = "Debe contener máximo 16 caracteres.";
         }
@@ -99,7 +99,7 @@ function FormularioRegistro() {
             nuevosErrores.password = "La contraseña no debe contener espacios.";
         }
 
-        // ✅ Verificación de mayoría de edad
+        //  Verificación de mayoría de edad
         const fechaNacimiento = new Date(formData.birth_date);
         const hoy = new Date();
         let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
