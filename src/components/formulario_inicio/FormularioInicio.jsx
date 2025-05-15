@@ -4,11 +4,17 @@ import BotonInicio from "../boton_inicio/BotonInicio";
 import { ErrorGlobal } from "../mensaje_error/MensajeError";
 import styles from "./FormularioInicio.module.css";
 import { loginAPI } from "../../api/modules/index";
+import { useNavigate } from "react-router-dom"; 
+import { setJWT } from "../../utils/localStorage";
+
+
 
 function FormularioInicio() {
   const [formData, setFormData] = useState({ usuario: "", password: "" });
   const [errores, setErrores] = useState({ usuario: "", password: "" });
-  const [errorGlobal, setErrorGlobal] = useState("");
+  const [errorGlobal, setErrorGlobal] = useState(""); 
+  const navigate = useNavigate();  
+
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -19,56 +25,55 @@ function FormularioInicio() {
     setErrores((prevErrores) => ({
       ...prevErrores,
       [id]: "",
-    })); // ✅ Borra el error al escribir
+    })); 
   };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setErrorGlobal(""); 
-        let nuevosErrores = {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorGlobal("");
+    let nuevosErrores = {};
 
-        if (!formData.usuario.trim()) {
-            nuevosErrores.usuario = "El correo es obligatorio.";
+    if (!formData.usuario.trim()) {
+        nuevosErrores.usuario = "El correo es obligatorio.";
+    }
+    if (!formData.password.trim()) {
+        nuevosErrores.password = "La contraseña es obligatoria.";
+    }
+
+    setErrores(nuevosErrores);
+
+    if (Object.keys(nuevosErrores).length > 0) return;
+
+    try {
+        const datosLogin = { email: formData.usuario, password: formData.password };
+        const response = await loginAPI(datosLogin);
+
+        if (response.data && response.data.jwt) {
+            setJWT(response.data.jwt); 
+            console.log("JWT guardado correctamente!");
+            navigate("/home"); 
         }
-        if (!formData.password.trim()) {
-            nuevosErrores.password = "La contraseña es obligatoria.";
+
+
+        if (response.message === "Usuario no autorizado, credenciales incorrectas") {
+            setErrorGlobal(response.message);
+        } else if (response.errors) {
+            let nuevosErroresAPI = {};
+            response.errors.forEach((error) => {
+                if (error.field) {
+                    nuevosErroresAPI[error.field] = error.message;
+                } else {
+                    setErrorGlobal(error.error);
+                }
+            });
+            setErrores(nuevosErroresAPI);
         }
+    } catch (error) {
+        console.error("Error en la solicitud:", error);
+        setErrorGlobal("Ocurrió un problema al conectar con el servidor.");
+    }
+  };
 
-        setErrores(nuevosErrores);
-
-        if (Object.keys(nuevosErrores).length > 0) {
-            return; 
-        }
-
-        try {
-            const datosLogin = { email: formData.usuario, password: formData.password };
-            const response = await loginAPI(datosLogin);
-            console.log("Respuesta de la API:", response);
-
-            if (response.data && response.data.jwt) {
-                localStorage.setItem("jwt", response.data.jwt); // ✅ Guardamos el JWT
-                console.log("JWT guardado correctamente!");
-                // 🚀 Aquí podrías redirigir al usuario a otra página
-            }
-
-            if (response.message === "Usuario no autorizado, credenciales incorrectas") {
-                setErrorGlobal(response.message);
-            } else if (response.errors) {
-                let nuevosErroresAPI = {};
-                response.errors.forEach((error) => {
-                    if (error.field) {
-                        nuevosErroresAPI[error.field] = error.message;
-                    } else {
-                        setErrorGlobal(error.error);
-                    }
-                });
-                setErrores(nuevosErroresAPI);
-            }
-        } catch (error) {
-            console.error("Error en la solicitud:", error);
-            setErrorGlobal("Ocurrió un problema al conectar con el servidor.");
-        }
-    };
 
 
 
