@@ -1,0 +1,46 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.container h3 {
+    color: #085f63;
+    font-weight: bold;
+}
+
+.filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter label {
+    font-size: 16px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter select {
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.credit {
+    color: green;
+}
+
+.debit {
+    color: red;
+}
