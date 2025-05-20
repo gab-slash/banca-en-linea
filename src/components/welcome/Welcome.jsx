@@ -9,8 +9,8 @@ export const Welcome = () => {
             </div>
 
             <div className={styles.welcome_balance}>
-                <p>Saldo disponible</p>
-                <h2>$1023.23</h2>
+                <p>Saldo disponible: </p>
+                <h3>$1023.23</h3>
             </div>
         </section>
     )

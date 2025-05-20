@@ -1,8 +1,13 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./src/assets/MontserratAlternatesRegular.ttf') format('truetype');
+}
+
 #root {
   margin: 0 auto;
   padding: 0;
   text-align: center;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat Alternates', sans-serif;
 }
 
 html, body {
@@ -13,7 +18,3 @@ html, body {
 }
 
 
-@font-face {
-    font-family: 'Montserrat';
-    src: url('./src/assets/Montserrat\ Alternates\ Regular.ttf') format('truetype');
-}
