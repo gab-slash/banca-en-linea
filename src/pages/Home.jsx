@@ -5,6 +5,8 @@ import { Sidebar } from '../components/sidebar/Sidebar';
 import { Welcome } from '../components/welcome/Welcome';
 import { MovementsList } from '../components/movement_list/MovementsList.jsx';
 
+import ChangePassword from '../components/change_password/ChangePassword.jsx';
+
 const Home = () => {
 
     return (
@@ -14,7 +16,7 @@ const Home = () => {
                 <Sidebar />
                 <main className={styles.home_main_content}>
                     <Welcome />
-                    <MovementsList />
+                    <ChangePassword/>
                 </main>
             </div>
         </div >
