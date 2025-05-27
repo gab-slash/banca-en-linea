@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { findUserByAccountNumberAPI, whoAmIAPI, getBalanceAPI } from "../../api/modules/user";
 import { createTransferAPI } from "../../api/modules/movements";
+import FrequentContacts from "../frequent_contacts/FrequentContacts";  // ***AGREGADO: IMPORTACIÓN DE OVERLAY DE CONTACTOS***  
 import styles from './TransferForm.module.css';
 
 export const TransferForm = () => {
@@ -17,6 +18,10 @@ export const TransferForm = () => {
     })
     const [userAccountNUmber, setUserAccountNumber] = useState("");
     const [userBalance, setUserBalance] = useState("");
+
+    // ***AGREGADO: ESTADOS PARA OVERLAY Y GUARDADO DE CONTACTOS***
+    const [overlayOpen, setOverlayOpen] = useState(false);
+    const [showSaveContact, setShowSaveContact] = useState(false);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -50,7 +55,7 @@ export const TransferForm = () => {
         setAccountNumber(value);
     }
 
-    const handleAmountChange = (e) => {
+        const handleAmountChange = (e) => {
         const value = e.target.value;
         if (!/^\d*\.?\d*$/.test(value)) {
             setErrors(prevErrors => ({
@@ -88,7 +93,18 @@ export const TransferForm = () => {
         setDescription(value);
     };
 
-    // 3- Funcion para manejar las diferentes validaciones
+    // ***AGREGADO: FUNCIÓN PARA ABRIR EL OVERLAY DE CONTACTOS***
+    const handleOpenContactsOverlay = () => {
+        setOverlayOpen(true);
+    };
+
+    // ***AGREGADO: FUNCIÓN PARA SELECCIONAR UN CONTACTO FRECUENTE***
+    const handleSelectContact = (contact) => {
+        setAccountNumber(contact.account_number);  // Inserta número de cuenta
+        setOverlayOpen(false);  // Cierra el overlay
+    };
+
+        // 3- Funcion para manejar las diferentes validaciones
 
     const validateFields = () => {
 
@@ -123,17 +139,6 @@ export const TransferForm = () => {
         return valid;
     }
 
-    const handleClear = () => {
-        setAccountNumber("");
-        setAmount("");
-        setDescription("");
-        setErrors({
-            accountNumber: "",
-            amount: "",
-            description: ""
-        });
-        setMessage("");
-    };
     // 3- Funcion para manejar el envio del formulario
 
     const handleTransfer = async (e) => {
@@ -145,7 +150,6 @@ export const TransferForm = () => {
         }
 
         try {
-            //Buscamos usuario por numero de cuenta
             console.log("Observa que nro de cuenta se envia:", accountNumber)
             const userResponse = await findUserByAccountNumberAPI(accountNumber);
 
@@ -154,11 +158,6 @@ export const TransferForm = () => {
                 return;
             }
 
-            // Si el usuario existe, procedemos a crear la transferencia
-
-            // Por aqui se deberia validar el monto es menor al saldo disponible
-            // Verificar que el numero de cuenta no sea el mismo que el del usuario logueado
-
             const transferData = {
                 amount: parseFloat(amount),
                 account_number: accountNumber,
@@ -166,12 +165,33 @@ export const TransferForm = () => {
             }
 
             const transferResponse = await createTransferAPI(transferData);
-            setMessage("Transferencia creada con exito" + transferResponse.id)
+            setMessage(`Transferencia creada con éxito! ID: ${transferResponse.id}`);
+
+            // ***AGREGADO: OPCIÓN PARA GUARDAR CONTACTO FRECUENTE***
+            setShowSaveContact(true);
         } catch (error) {
             console.error("Error creando transferencia:", error);
             setMessage("Error creando transferencia");
         }
     }
+
+        const handleClear = () => {
+        setAccountNumber("");
+        setAmount("");
+        setDescription("");
+        setErrors({
+            accountNumber: "",
+            amount: "",
+            description: ""
+        });
+        setMessage("");
+    };
+
+    // ***AGREGADO: FUNCIÓN PARA GUARDAR COMO CONTACTO FRECUENTE***
+    const handleSaveAsContact = () => {
+        setShowSaveContact(false);
+        setOverlayOpen(true);
+    };
 
     return (
         <div>
@@ -181,15 +201,22 @@ export const TransferForm = () => {
 
                 <div className={styles.input_container}>
                     <label htmlFor="accountNumber">Cuenta Destino</label>
-                    <input
-                        id="accountNumber"
-                        type="text"
-                        placeholder="Numero de cuenta"
-                        value={accountNumber}
-                        onChange={handleAccountNumberChange}
-                    />
+                    <div className={styles.inputWrapper}>
+                        <input
+                            id="accountNumber"
+                            type="text"
+                            placeholder="Número de cuenta"
+                            value={accountNumber}
+                            onChange={handleAccountNumberChange}
+                        />
+                        {/* ***AGREGADO: BOTÓN PARA SELECCIONAR CONTACTO*** */}
+                        <button type="button" className={styles.selectContactBtn} onClick={handleOpenContactsOverlay}>
+                            📖
+                        </button>
+                    </div>
                     {errors.accountNumber && <p className={styles.error_p} style={{ color: "red" }}>{errors.accountNumber}</p>}
                 </div>
+
                 <div className={styles.input_container}>
                     <label htmlFor="amount">Monto</label>
                     <input
@@ -200,8 +227,9 @@ export const TransferForm = () => {
                         onChange={handleAmountChange}
                         maxLength={20}
                     />
-                    {errors.amount && <p className={styles.error_p} style={{ color: "red", padding: 0, margin: 0 }}>{errors.amount}</p>}
+                    {errors.amount && <p className={styles.error_p} style={{ color: "red" }}>{errors.amount}</p>}
                 </div>
+
                 <div className={styles.input_container}>
                     <label htmlFor="description">Descripcion</label>
                     <input
@@ -212,11 +240,31 @@ export const TransferForm = () => {
                     />
                     {errors.description && <p className={styles.error_p} style={{ color: "red" }}>{errors.description}</p>}
                 </div>
+
                 <div className={styles.btn_container}>
-                    <button type="submit" >Transferir</button>
+                    <button type="submit">Transferir</button>
                     <button type="button" onClick={handleClear}>Limpiar</button>
                 </div>
+
                 {message && <p>{message}</p>}
+
+                {/* ***AGREGADO: OPCIÓN PARA GUARDAR CONTACTO FRECUENTE*** */}
+                {showSaveContact && (
+                    <div className={styles.saveContactContainer}>
+                        <p>¿Quieres guardar este destinatario como contacto frecuente?</p>
+                        <button onClick={handleSaveAsContact}>Guardar Contacto</button>
+                    </div>
+                )}
+
+                {/* ***AGREGADO: OVERLAY PARA SELECCIONAR O CREAR CONTACTO*** */}
+                {overlayOpen && (
+                    <FrequentContacts 
+                        isOpen={overlayOpen} 
+                        onClose={() => setOverlayOpen(false)} 
+                        creationMode={showSaveContact} 
+                        transferAccountNumber={accountNumber} 
+                    />
+                )}
             </form>
         </div>
     )
